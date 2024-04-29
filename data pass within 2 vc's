@@ -1,0 +1,41 @@
+Sure, here's an example of how you can pass data from View Controller 1 (VC1) to View Controller 2 (VC2) using a segue with identifier "vc2":
+
+In VC1, assuming you have some data you want to pass:
+
+```swift
+import UIKit
+
+class ViewController1: UIViewController {
+
+    var dataToPass: String = "Hello VC2!"
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "vc2" {
+            if let vc2 = segue.destination as? ViewController2 {
+                vc2.receivedData = dataToPass
+            }
+        }
+    }
+}
+```
+
+In VC2:
+
+```swift
+import UIKit
+
+class ViewController2: UIViewController {
+
+    var receivedData: String = ""
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Use receivedData here
+        print(receivedData) // Just an example to show you how to use the received data
+    }
+}
+```
+
+Make sure to set the segue identifier in your storyboard by selecting the segue between VC1 and VC2, and setting its identifier to "vc2".
+
+This way, when the segue is triggered, the `prepare(for:sender:)` method in VC1 will be called, where you can set the `receivedData` property in VC2 to the data you want to pass. Then, when VC2 loads, it will have access to the data through the `receivedData` property.
